@@ -2,27 +2,28 @@
   <div
     class="card"
     :class="cardActiveClass"
+    @click="clickedCard"
   >
     <div class="info">
       <h1>
         <img
-          v-if="active"
-          src="../assets/skeleton-white.svg"
+          v-if="card.active"
+          :src="require(`../assets/${card.title.icon}-white.svg`)"
         >
         <img
           v-else
-          src="../assets/skeleton.svg"
+          :src="require(`../assets/${card.title.icon}.svg`)"
         >
-        {{ title }}
+        {{ card.title.text }}
       </h1>
-      <p>{{ subtitle }}</p>
+      <p>{{ card.subtitle }}</p>
       <div :class="checksClass">
         <div
-          v-for="(item, index) in infos"
-          :key="index"
+          v-for="(item, cardIndex) in card.infos"
+          :key="cardIndex"
         >
           <img
-            v-if="active"
+            v-if="card.active"
             src="../assets/check-white.svg"
           >
           <img
@@ -35,7 +36,15 @@
     </div>
     <div class="card-footer">
       <h1 class="price">
-        {{ price }}
+        <span
+          v-if="card.price > 0"
+          class="not-free"
+        >
+          R$ {{ card.price }}<span>/month</span>
+        </span>
+        <span v-else>
+          Free Forever
+        </span>
       </h1>
       <button :class="chooseButtonClass">
         Choose
@@ -48,36 +57,25 @@
 export default {
   name: 'CardPlan',
   props: {
-    active: {
-      type: Boolean,
-      default: false,
-    },
-    price: {
-      type: String,
-      default: 'Free Forever',
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    subtitle: {
-      type: String,
-      default: 'What You’ll Get',
-    },
-    infos: {
-      type: Array,
-      default: () => [],
+    card: {
+      type: Object,
+      default: () => {},
     },
   },
   computed: {
     cardActiveClass() {
-      return this.active ? 'selected' : '';
+      return this.card.active ? 'selected' : '';
     },
     checksClass() {
-      return this.active ? 'checks-selected' : 'checks';
+      return this.card.active ? 'checks-selected' : 'checks';
     },
     chooseButtonClass() {
-      return this.active ? 'choose-button-active' : 'choose-button';
+      return this.card.active ? 'choose-button-active' : 'choose-button';
+    },
+  },
+  methods: {
+    clickedCard() {
+      this.$emit('cardSelected', this.card.index);
     },
   },
 };
@@ -93,12 +91,22 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: all 0.8s;
+}
+
+.card:hover {
+  border: 1px solid #0B0641;
 }
 
 .selected {
   background-color: #0B0641;
   transform: translateY(-40px);
   color: #ffffff;
+  transition: border 0.3s;
+}
+
+.selected:hover {
+  border: 1px solid #ff1d89;
 }
 
 .card > .info > h1 {
@@ -153,6 +161,11 @@ export default {
   margin-bottom: 24px;
 }
 
+.card > .card-footer > .price > .not-free > span {
+  font-size: 18px;
+  font-weight: 100;
+}
+
 .card > .card-footer > .choose-button-active,
 .card > .card-footer > .choose-button {
   width: 100%;
@@ -168,11 +181,13 @@ export default {
   box-shadow: 0px 12px 32px rgba(255, 29, 137, 0.5);
   color: #ffffff;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .card > .card-footer > .choose-button {
   background: #FFF5FA;
   color: #ff1d89;
   font-weight: 600;
+  cursor: pointer;
 }
 </style>
