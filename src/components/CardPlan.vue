@@ -13,11 +13,14 @@
           v-else
           src="../assets/skeleton.svg"
         >
-        Guardian
+        {{ title }}
       </h1>
-      <p>What You’ll Get</p>
+      <p>{{ subtitle }}</p>
       <div :class="checksClass">
-        <div>
+        <div
+          v-for="(item, index) in infos"
+          :key="index"
+        >
           <img
             v-if="active"
             src="../assets/check-white.svg"
@@ -26,24 +29,17 @@
             v-else
             src="../assets/check.svg"
           >
-          <span>Edit up to 10 hours of podcast audio files.</span>
-        </div>
-        <div>
-          <img
-            v-if="active"
-            src="../assets/check-white.svg"
-          >
-          <img
-            v-else
-            src="../assets/check.svg"
-          >
-          <span>Set your own CoreLoop Page</span>
+          <span>{{ item }}</span>
         </div>
       </div>
     </div>
     <div class="card-footer">
-      <h1 class="price">Free Forever</h1>
-      <button :class="chooseButtonClass">Choose</button>
+      <h1 class="price">
+        {{ price }}
+      </h1>
+      <button :class="chooseButtonClass">
+        Choose
+      </button>
     </div>
   </div>
 </template>
@@ -55,6 +51,22 @@ export default {
     active: {
       type: Boolean,
       default: false,
+    },
+    price: {
+      type: String,
+      default: 'Free Forever',
+    },
+    title: {
+      type: String,
+      default: '',
+    },
+    subtitle: {
+      type: String,
+      default: 'What You’ll Get',
+    },
+    infos: {
+      type: Array,
+      default: () => [],
     },
   },
   computed: {
@@ -74,7 +86,6 @@ export default {
 <style>
 .card {
   max-width: 400px;
-  max-height: 600px;
   background-color: #ffffff;
   margin: 10px;
   border-radius: 20px;
@@ -98,7 +109,6 @@ export default {
 .card > .info > p {
   color: #A9A9AA;
   font-size: 22px;
-  margin-bottom: 24px;
 }
 
 .card > .info > h1 > img {
@@ -121,6 +131,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+  margin: 24px 0px;
 }
 
 .card > .info > .checks div span,
