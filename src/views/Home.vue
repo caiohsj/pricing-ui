@@ -82,7 +82,7 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  background-color: #E5E5E5;
+  background-color: $background_home;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,7 +91,7 @@ export default {
   .cards {
     display: flex;
     justify-content: space-between;
-    background-color: #ffffff;
+    background-color: $white;
     border-radius: 20px;
     width: 80%;
   }

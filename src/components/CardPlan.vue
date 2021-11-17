@@ -84,7 +84,7 @@ export default {
 <style lang="scss" scoped>
 .card {
   max-width: 400px;
-  background-color: #ffffff;
+  background-color: $white;
   margin: 10px;
   border-radius: 20px;
   padding: 20px;
@@ -101,17 +101,17 @@ export default {
       }
     }
     p {
-      color: #A9A9AA;
+      color: $gray;
       font-size: 22px;
     }
 
     .checks-selected {
-      border-bottom: 1px dashed #ffffff;
+      border-bottom: 1px dashed $white;
       padding: 10px 0px;
     }
 
     .checks {
-      border-bottom: 1px dashed #A9A9AA;
+      border-bottom: 1px dashed $gray;
       padding: 10px 0px;
     }
 
@@ -154,16 +154,16 @@ export default {
       }
 
       .choose-button-active {
-        background: #ff1d89;
-        box-shadow: 0px 12px 32px rgba(255, 29, 137, 0.5);
-        color: #ffffff;
+        background: $pink;
+        box-shadow: 0px 12px 32px $color_box_shadow_button_active;
+        color: $white;
         font-weight: 600;
         cursor: pointer;
       }
 
       .choose-button {
-        background: #FFF5FA;
-        color: #ff1d89;
+        background: $light;
+        color: $pink;
         font-weight: 600;
         cursor: pointer;
       }
@@ -172,13 +172,13 @@ export default {
 }
 
 .card:hover {
-  border: 1px solid #0B0641;
+  border: 1px solid $background_active;
 }
 
 .selected {
-  background-color: #0B0641;
+  background-color: $background_active;
   transform: translateY(-40px);
-  color: #ffffff;
+  color: $light;
   transition: border 0.3s;
 }
 
