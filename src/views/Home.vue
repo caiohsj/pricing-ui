@@ -80,7 +80,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .home {
   background-color: #E5E5E5;
   display: flex;
@@ -88,12 +88,12 @@ export default {
   align-items: center;
   height: 100vh;
   padding-top: 224px;
-}
-.cards {
-  display: flex;
-  justify-content: space-between;
-  background-color: #ffffff;
-  border-radius: 20px;
-  width: 80%;
+  .cards {
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border-radius: 20px;
+    width: 80%;
+  }
 }
 </style>
